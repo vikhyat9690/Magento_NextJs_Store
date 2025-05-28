@@ -1,14 +1,35 @@
 import axios from "axios";
 
-interface AddToCart {
+interface AddToCartPayload {
     sku: string,
-    quantity?: number
+    quantity?: number,
+    parentSku?: string,
+    selectedOptions?: {
+        [attributeId: string]: number
+    };
 }
 
-export async function addToCart(sku: string, quantity: number = 1): Promise<AddToCart> {
-    
-    const res = await axios.post('/api/magento/cart/add', {sku, quantity});
-    console.log(res.data);
+interface AddToCartResponse {
+    sku: string,
+    quantity: number
+}
+
+export async function addToCart({
+    sku,
+    quantity = 1,
+    parentSku,
+    selectedOptions,
+}: AddToCartPayload): Promise<AddToCartResponse> {
+    const payload:any = {
+        sku,
+        quantity
+    }
+
+    if(parentSku && selectedOptions) {
+        payload.parentSku = parentSku;
+        payload.selectedOptions = selectedOptions;
+    }
+    const res = await axios.post('/api/magento/cart/add', payload);
     return res.data;
 }
 
@@ -17,7 +38,14 @@ export async function getGuestCart() {
     return res.data;
 }
 
-export async function safeAddToCart(sku: string, quantity: number = 1): Promise<AddToCart> {
-    getGuestCart();
-    return addToCart(sku, quantity);
+export async function safeAddToCart(payload: AddToCartPayload): Promise<AddToCartResponse> {
+    console.log(payload);
+    await getGuestCart();
+    return addToCart(payload);
+}
+
+export async function getCartItems() {
+    const res = await axios.get('/api/magento/cart/items');
+    console.log(res.data);
+    return res.data;
 }

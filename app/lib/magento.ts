@@ -166,7 +166,6 @@ export async function fetchProduct(sku: string) {
   const URI = NEXT_URI + '/api/magento';
   try {
     const res = await axios.post(URI, { query });
-    console.log(res.data);
     return res.data?.data?.products?.items?.[0];
   } catch (error: any) {
     console.log(error.message);

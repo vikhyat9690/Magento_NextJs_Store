@@ -25,7 +25,15 @@ export default function ProductCard({
     const handleAddToCart = async (e: React.MouseEvent) => {
         e.preventDefault()
         try {
-            await safeAddToCart(sku, 1)
+            await safeAddToCart({
+                sku: 'simple-variant-sku', // the child variant SKU
+                parentSku: 'configurable-shirt',
+                quantity: 1,
+                selectedOptions: {
+                    '93': 50, // attribute_id: option_id
+                    '142': 170
+                }
+            })
             toast.success("Product added to cart!")
         } catch (error) {
             console.log(error);

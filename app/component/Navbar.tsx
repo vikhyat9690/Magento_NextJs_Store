@@ -5,7 +5,7 @@ import Link from "next/link"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Menu } from "lucide-react"
+import { Menu, ShoppingCartIcon } from "lucide-react"
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
@@ -30,6 +30,9 @@ export default function Navbar() {
         </Link>
         <Link href="/auth/login" className="text-gray-500 hover:text-white">
           Login
+        </Link>
+        <Link href="/cart" className="text-gray-500 hover:text-white flex items-center">
+          <ShoppingCartIcon />
         </Link>
       </div>
 
