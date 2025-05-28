@@ -1,38 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🛍️ Magento Storefront in Next.js
 
-## Getting Started
+A blazing-fast headless eCommerce storefront built with **Next.js 14**, **Tailwind CSS**, and **Magento 2** as the backend using GraphQL. This project follows modern architecture and best practices, and is fully extensible.
 
-First, run the development server:
+---
+
+## 🚀 Features
+
+- Headless integration with Magento 2 via GraphQL
+- Guest cart & configurable product support
+- Product listing, filtering, and details
+- Cart functionality using server-side cookies
+- Fully styled using [shadcn/ui](https://ui.shadcn.com/)
+- Modular codebase using TypeScript and Prisma
+
+---
+
+## 🛠️ Getting Started
+
+### 1. Clone the Repo
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/vikhyat9690/Magento_NextJs_Store.git
+cd Magento_NextJs_Store
+```
+```
+npm install
+```
+## ENV variables
+
+```
+# ✅ Magento Base URL (used for store views and APIs)
+MAGENTO_BASE_URL=https://your-magento-site.com
+
+# ✅ Magento GraphQL Endpoint
+MAGENTO_GRAPHQL_URL=https://your-magento-site.com/graphql
+
+# ✅ Next.js Base URL (used internally for cookies or redirects, include http://localhost:3000 in dev)
+NEXT_PUBLIC_NEXT_BASE_URL=http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## For starting the application
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+ - ### Git clone or download the .zip
+   ```
+   npm run build
+   npm run start
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+ - ### Your magento graphql url:
+   ```
+   https://your-magento-domain.com/graphql
+   ```
+   
+Let me know if you want to customize the project badges, add screenshots, or include deployment instructions (e.g. Vercel, Docker).
+Developer and all right reserves to [Vikhyat Garg](https://github.com/vikhyat9690/)
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# Magento_NextJs_Store
-# Magento_NextJs_Store
