@@ -1,9 +1,12 @@
 // app/products/[sku]/page.tsx
 
+import AddToCartSimpleBtn from '@/app/component/AddToCartSimple';
 import ConfigurableSelector from '@/app/component/ConfigurableSelector';
 import MediaCarousel from '@/app/component/MediaCarousel';
 import { fetchProduct } from '@/app/lib/magento';
+import { Button } from '@/components/ui/button';
 import { DollarSign } from 'lucide-react';
+import { MdShoppingCartCheckout } from 'react-icons/md';
 
 interface ProductPageProps {
   params: {
@@ -56,12 +59,17 @@ export default async function ProductPage({ params }: ProductPageProps) {
             </div>
 
             {/* Configurable Selector */}
-            {isConfigurable && (
+            {isConfigurable ? (
               <ConfigurableSelector
                 options={product.configurable_options}
                 sku={product.sku}
               />
-            )}
+            ):
+            <AddToCartSimpleBtn
+            sku={product.sku}
+            quantity={1}
+            />
+            }
           </div>
         </div>
       </div>

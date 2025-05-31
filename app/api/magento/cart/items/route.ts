@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 export async function GET() {
     const  MAGENTO_API = process.env.MAGENTO_BASE_URI!;
     const cartId = (await cookies()).get('cart_id')?.value;
-
+    console.log(cartId);
     if(!cartId) {
         return NextResponse.json({error: 'No cart found!'}, {status: 400});
     }

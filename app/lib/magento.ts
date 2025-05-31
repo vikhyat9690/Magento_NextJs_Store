@@ -48,6 +48,47 @@ export async function fetchProducts(currentPage: number = 1, filters: any = {}):
                url
            }
            sku
+           ... on ConfigurableProduct {
+            configurable_options {
+          id
+          attribute_id
+          label
+          values {
+            value_index
+            label
+            swatch_data {
+              value
+              ... on ImageSwatchData {
+                thumbnail
+              }
+              ... on ColorSwatchData {
+                value
+              }
+            }
+          }
+          product_id
+        }
+        variants {
+          product {
+            id
+            sku
+            name
+            price_range {
+              minimum_price {
+                regular_price {
+                  value
+                  currency
+                }
+              }
+            }
+            stock_status
+          }
+          attributes {
+            code
+            value_index
+          }
+        }
+      }
          }
       }
     }
@@ -57,6 +98,7 @@ export async function fetchProducts(currentPage: number = 1, filters: any = {}):
     const response = await axios.post(`${baseUrl}/api/magento`, { query });
     const data = response.data.data.products;
     const totalPages = Math.ceil(data.total_count / pageSize);
+    // console.log(response.data);
     return { products: data.items, totalPages };
   } catch (error) {
     console.log(error);
@@ -67,28 +109,6 @@ export async function fetchProducts(currentPage: number = 1, filters: any = {}):
 
 export async function fetchProduct(sku: string) {
   const NEXT_URI = process.env.NEXT_FRONTEND_URI!;
-  // const query = `
-  // {
-  //   products(filter: { sku: { eq: "${sku}" } }) {
-  //     items {
-  //       id
-  //       name
-  //       price {
-  //         regularPrice {
-  //           amount {
-  //             value
-  //             currency
-  //           }
-  //         }
-  //       }
-  //       image {
-  //           url
-  //       }
-  //       sku
-  //     }
-  //   }
-  // }
-  //   `;
   const query = `
 {
   products(filter: { sku: { eq: "${sku}" } }) {

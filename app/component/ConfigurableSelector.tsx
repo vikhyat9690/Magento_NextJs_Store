@@ -24,9 +24,10 @@ interface ConfigurableOption {
 interface ConfigurableSelectorProps {
   options: ConfigurableOption[];
   sku: string;
+  quantity?: number;
 }
 
-export default function ConfigurableSelector({ options, sku }: ConfigurableSelectorProps) {
+export default function ConfigurableSelector({ options, sku, quantity }: ConfigurableSelectorProps) {
   const [selectedOptions, setSelectedOptions] = useState<{ [attributeId: string]: number }>({});
   const [loading, setLoading] = useState(false);
 
@@ -45,7 +46,7 @@ export default function ConfigurableSelector({ options, sku }: ConfigurableSelec
     try {
       const payload = {
         sku,
-        quantity: 1,
+        quantity: quantity,
         isConfigurable: true,
         selectedOptions,
       };
@@ -62,9 +63,9 @@ export default function ConfigurableSelector({ options, sku }: ConfigurableSelec
   return (
     <div className="w-full space-y-6 mt-6">
       {options.map((option) => (
-        <div key={option.attribute_id} className="space-y-2">
+        <div key={option.attribute_id} className="space-y-2 w-full">
           <p className="text-sm font-semibold text-gray-400">{option.label}</p>
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap gap-3 w-full">
             {option.values.map((value) => (
               <button
                 key={value.value_index}

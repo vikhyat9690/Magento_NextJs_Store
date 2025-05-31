@@ -2,13 +2,27 @@
 "use client"
 
 import Link from "next/link"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Menu, ShoppingCartIcon } from "lucide-react"
+import { getCustomer } from "../lib/customer"
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
+  const [data, setData] = useState("");
+  useEffect(() => {
+    async function initCustomer() {
+      try {
+        const data = await getCustomer();
+        console.log(data);
+        setData(data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    initCustomer()
+  }, [])
 
   return (
     <nav className="w-full px-6 py-4 bg-black shadow-md flex items-center justify-between">
@@ -19,6 +33,9 @@ export default function Navbar() {
 
       {/* Desktop Links */}
       <div className="hidden md:flex gap-14 w-2/3 justify-end">
+        <span className="text-white">
+          {data.length}
+        </span>
         <Link href="/products" className="text-gray-500 hover:text-white">
           Products
         </Link>

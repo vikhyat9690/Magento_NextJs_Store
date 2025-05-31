@@ -24,6 +24,9 @@ interface Product {
       }
     }
   }
+  configurable_options?: {
+    
+  }
 }
 
 interface AllProductsProps {
@@ -46,12 +49,12 @@ export default async function ProductsPage({ searchParams }: AllProductsProps) {
 
       <div className="flex flex-col lg:flex-row gap-6">
         {/* Filters Sidebar */}
-        <div className="lg:w-1/4 w-full">
+        <div className="lg:w-1/6 w-full">
           <Filters />
         </div>
 
         {/* Product Grid */}
-        <div className="lg:w-3/4 w-full">
+        <div className="lg:w-5/6 w-full">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {products?.map((product: Product) => (
               <ProductCard
@@ -60,6 +63,7 @@ export default async function ProductsPage({ searchParams }: AllProductsProps) {
                 name={product.name}
                 sku={product.sku}
                 image={product.image.url}
+                configurableOptions={product.configurable_options ? product['configurable_options'] : false}
                 price={product.price.regularPrice.amount.value}
                 currency={product.price.regularPrice.amount.currency}
               />

@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
     const cookieStorage = await cookies();
     const cartId = cookieStorage.get('cart_id')?.value;
     
-
+    
     if(!cartId) {
         return NextResponse.json({error: 'No cart found for you!'}, {status: 400});
     }
@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
             quote_id: cartId
         }
     };
-    console.log(payload.cartItem.product_option?.extension_attributes);
+    console.log(payload);
     try {
         const res = await axios.post(`${MAGENTO_API}/rest/V1/guest-carts/${cartId}/items`, payload, {
             headers: {

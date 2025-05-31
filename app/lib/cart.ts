@@ -14,6 +14,7 @@ interface AddToCartResponse {
     quantity: number
 }
 
+//Add to cart
 export async function addToCart({
     sku,
     quantity = 1,
@@ -33,19 +34,35 @@ export async function addToCart({
     return res.data;
 }
 
+//Get a guest cart
 export async function getGuestCart() {
     const res = await axios.get('/api/magento/cart');
     return res.data;
 }
 
+//Add to cart after checking
 export async function safeAddToCart(payload: AddToCartPayload): Promise<AddToCartResponse> {
-    console.log(payload);
     await getGuestCart();
     return addToCart(payload);
 }
 
+//Get Products of Cart
 export async function getCartItems() {
     const res = await axios.get('/api/magento/cart/items');
-    console.log(res.data);
     return res.data;
+}
+
+//Update cart items
+export async function updateCartItemQty(itemId: number, qty: number) {
+  const res = await axios.put("/api/magento/cart/items/update", {
+    itemId,
+    qty,
+  });
+  return res.data;
+}
+
+//Remove from cart
+export async function removeCartItem(itemId: number) {
+  const res = await axios.delete(`/api/magento/cart/items/update?itemId=${itemId}`);
+  return res.data;
 }
