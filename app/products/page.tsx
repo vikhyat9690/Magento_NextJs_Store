@@ -8,6 +8,8 @@ import { addToCart } from "../lib/cart";
 import toast from "react-hot-toast";
 import { useMemo } from "react";
 import ProductCard from "../component/ProductCard";
+import ProductWrapper from "../component/ProductWrapper";
+import CustomerCard from "../component/CustomerCard";
 
 interface Product {
   id: number,
@@ -25,7 +27,7 @@ interface Product {
     }
   }
   configurable_options?: {
-    
+
   }
 }
 
@@ -56,7 +58,7 @@ export default async function ProductsPage({ searchParams }: AllProductsProps) {
         {/* Product Grid */}
         <div className="lg:w-5/6 w-full">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {products?.map((product: Product) => (
+            {/* {products?.map((product: Product) => (
               <ProductCard
                 key={product.id}
                 id={product.id}
@@ -67,7 +69,12 @@ export default async function ProductsPage({ searchParams }: AllProductsProps) {
                 price={product.price.regularPrice.amount.value}
                 currency={product.price.regularPrice.amount.currency}
               />
-            ))}
+            ))} */}
+            <ProductWrapper
+              products={products}
+              currentPage={currentPage}
+              totalPages={totalPages}
+            />
           </div>
 
           {/* Pagination */}
@@ -77,6 +84,10 @@ export default async function ProductsPage({ searchParams }: AllProductsProps) {
               totalPages={totalPages}
               basePath="/products"
             />
+          </div>
+
+          <div>
+            {/* <CustomerCard /> */}
           </div>
         </div>
       </div>

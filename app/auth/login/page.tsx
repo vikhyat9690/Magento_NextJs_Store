@@ -1,11 +1,12 @@
 // /app/auth/login/page.tsx
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
+import { getCustomerAfterLogin } from "@/app/lib/customer";
 
 export default function LoginPage() {
   const [form, setForm] = useState({
@@ -27,6 +28,14 @@ export default function LoginPage() {
       setError(err.response?.data?.error || "Login failed");
     }
   };
+
+  useEffect(() => {
+    async function getCustomer(email: string, password: string) {
+      const customerInfo = await getCustomerAfterLogin(email, password);
+      // localStorage.setItem('customer_info', {customerInfo})
+    }
+    getCustomer(form.email, form.password)
+  }, [handleSubmit])
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-black text-white">
