@@ -19,11 +19,12 @@ export async function POST(req: NextRequest) {
       body,
       {
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
         },
       }
     );
-
+    console.log(response)
     return NextResponse.json(response.data);
   } catch (error: any) {
     const msg = error.response?.data?.message || error.message;

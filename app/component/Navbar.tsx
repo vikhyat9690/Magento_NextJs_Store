@@ -13,7 +13,9 @@ import {
 } from "@/components/ui/sheet"
 
 import { Menu, ShoppingCartIcon } from "lucide-react"
-import { getCustomer, getCustomerAfterLogin } from "../lib/customer"
+import { MdShoppingCartCheckout } from "react-icons/md"
+import { Logout } from "../lib/logout"
+import toast from "react-hot-toast"
 
 interface Customer {
   id: string,
@@ -28,17 +30,24 @@ interface Customer {
 export default function Navbar() {
   const [open, setOpen] = useState(false)
   const [customer, setCustomer] = useState<Customer | null>(null);
+  const [logout, setLogout] = useState(false);
   useEffect(() => {
     async function initCustomer() {
       try {
-        const res = await getCustomer(1);
-        setCustomer(res?.data?.getCustomerInfoById || null);
+        const customerInfo = localStorage.getItem('customer_info')!;
+        const customer = JSON.parse(customerInfo);
+        setCustomer(customer)
       } catch (error) {
         console.log(error);
       }
     }
     initCustomer()
   }, [])
+
+  const handleSubmit = async() => {
+    const res = await Logout();
+    toast.success('Logged out successfully');
+  }
 
   return (
     <nav className="w-full px-6 py-4 bg-black shadow-md flex items-center justify-between">
@@ -50,7 +59,10 @@ export default function Navbar() {
       {/* Desktop Links */}
       <div className="hidden md:flex gap-14 w-2/3 justify-end">
         <span className="text-white" id={customer?.id}>
-          Hello, {customer?.firstname}!
+          {customer
+            ? ('Hello, ' + customer?.firstname + ' !')
+            : ''
+          }
         </span>
         <Link href="/products" className="text-gray-500 hover:text-white">
           Products
@@ -61,9 +73,15 @@ export default function Navbar() {
         <Link href="/contact" className="text-gray-500 hover:text-white">
           Contact
         </Link>
-        <Link href="/auth/login" className="text-gray-500 hover:text-white">
-          Login
-        </Link>
+        {
+          customer
+            ? <Link href="/auth/login" onClick={handleSubmit}>
+              Logout
+            </Link>
+            : <Link href="/auth/login" onClick={() => setOpen(false)}>
+              Login/Register
+            </Link>
+        }
         <Link href="/cart" className="text-gray-500 hover:text-white flex items-center">
           <ShoppingCartIcon />
         </Link>
@@ -90,6 +108,18 @@ export default function Navbar() {
               </Link>
               <Link href="/contact" onClick={() => setOpen(false)}>
                 Contact
+              </Link>
+              {
+                customer
+                  ? <Link href="/auth/logout" onClick={() => setOpen(false)}>
+                    Logout
+                  </Link>
+                  : <Link href="/auth/login" onClick={() => setOpen(false)}>
+                    Login/Register
+                  </Link>
+              }
+              <Link href="/cart" onClick={() => setOpen(false)}>
+                Your Cart
               </Link>
             </div>
           </SheetContent>

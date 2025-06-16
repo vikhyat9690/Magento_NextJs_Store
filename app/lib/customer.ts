@@ -1,16 +1,15 @@
 import axios from "axios";
 
 export async function getCustomer(id: number) {
+  console.log(id)
   const query = `
-    query GetCustomerInfoById($id: Int!) {
-      getCustomerInfoById(id: $id) {
+    query GetCustomerById($id: Int!) {
+      customerById(id: $id) {
         id
         firstname
         lastname
         email
-        phone
         gender
-        post_code
         dob
       }
     }
@@ -35,6 +34,8 @@ export async function getCustomerAfterLogin(email: string, password: string) {
     query,
     variables: {email, password},
   })
-  console.log(res.data);
-  const customerId = res.data;
+  const id = res.data?.data?.customerLogin?.id;
+  const customerData = await getCustomer(id);
+  console.log(customerData)
+  return customerData;
 }

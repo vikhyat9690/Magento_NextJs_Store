@@ -26,12 +26,12 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({error: 'No token provided', status: 500})
         }
 
-        (await cookies()).set('customer_token', token, {
-            httpOnly: true,
-            path: '/',
-            secure: true,
-            sameSite: "lax"
-        })
+        // (await cookies()).set('customer_token', token, {
+        //     httpOnly: true,
+        //     path: '/',
+        //     secure: true,
+        //     sameSite: "lax"
+        // })
 
         return NextResponse.json({success: true, token});
     } catch (error: any) {

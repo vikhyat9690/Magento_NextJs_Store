@@ -34,7 +34,6 @@ export async function POST(req: NextRequest) {
             quote_id: cartId
         }
     };
-    console.log(payload);
     try {
         const res = await axios.post(`${MAGENTO_API}/rest/V1/guest-carts/${cartId}/items`, payload, {
             headers: {
