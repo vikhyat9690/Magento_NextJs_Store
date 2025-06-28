@@ -5,17 +5,14 @@ import { NextResponse, NextRequest } from "next/server";
 import { cookies } from "next/headers";
 
 export async function POST(req: NextRequest) {
-    const MAGENTO_URI = process.env.MAGENTO_BASE_URI!;
+    const MAGENTO_URI = process.env.NEXT_PUBLIC_MAGENTO_API!;
     if(!MAGENTO_URI) {
         return NextResponse.json({error: 'Not a valid magento url', status: 400})
     }
-    const {email, password} = await req.json();
+    const param = await req.json();
 
     try {
-        const res = await axios.post(`${MAGENTO_URI}/rest/default/V1/integration/customer/token`, {
-            username: email,
-            password
-        }, {
+        const res = await axios.post(MAGENTO_URI, param, {
             headers: {
                 'Content-Type': 'application/json'
             }

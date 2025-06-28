@@ -39,9 +39,9 @@ export default function LoginPage() {
       await axios.post("/api/magento/auth/login", form);
 
       // Get Customer Info & Token via GraphQL
+      const token = await getCustomerToken(form.email, form.password);
       const customerRes = await getCustomerAfterLogin(form.email, form.password);
       const customer = customerRes?.data?.customerById;
-      const token = await getCustomerToken(form.email, form.password);
 
       // Save to Storage
       localStorage.setItem("customer_info", JSON.stringify(customer));

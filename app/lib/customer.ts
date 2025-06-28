@@ -1,7 +1,6 @@
 import axios from "axios";
 
 export async function getCustomer(id: number) {
-  console.log(id)
   const query = `
     query GetCustomerById($id: Int!) {
       customerById(id: $id) {
@@ -36,6 +35,5 @@ export async function getCustomerAfterLogin(email: string, password: string) {
   })
   const id = res.data?.data?.customerLogin?.id;
   const customerData = await getCustomer(id);
-  console.log(customerData)
   return customerData;
 }

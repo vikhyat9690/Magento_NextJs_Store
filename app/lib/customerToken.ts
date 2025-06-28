@@ -1,11 +1,13 @@
 import axios from "axios";
 
 interface CustomerTokenResponse {
-  data: {
-    generateCustomerToken: {
-      token: string;
+  token: {
+    data: {
+      generateCustomerToken: {
+        token: string;
+      };
     };
-  };
+  }
 }
 
 export async function getCustomerToken(email: string, password: string): Promise<string> {
@@ -19,10 +21,9 @@ export async function getCustomerToken(email: string, password: string): Promise
 
   const variables = { email, password };
 
-  const response = await axios.post<CustomerTokenResponse>("/api/magento/get-token", {
+  const response = await axios.post<CustomerTokenResponse>("/api/magento/auth/login", {
     query,
     variables,
   });
-
-  return response.data.data.generateCustomerToken.token;
+  return response.data.token?.data?.generateCustomerToken?.token;
 }

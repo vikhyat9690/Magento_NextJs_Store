@@ -4,7 +4,7 @@ import axios from "axios";
 
 export async function POST(req: NextRequest) {
     const {sku, quantity, selectedOptions} = await req.json();
-    const MAGENTO_API = process.env.MAGENTO_BASE_URI!;
+    const MAGENTO_API = process.env.NEXT_PUBLIC_MAGENTO_API!;
     const cookieStorage = await cookies();
     const cartId = cookieStorage.get('cart_id')?.value;
     
@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
         }
     };
     try {
-        const res = await axios.post(`${MAGENTO_API}/rest/V1/guest-carts/${cartId}/items`, payload, {
+        const res = await axios.post(MAGENTO_API, payload, {
             headers: {
                 'Content-Type': 'application/json'
             }
