@@ -10,14 +10,8 @@ import { MdShoppingCartCheckout } from 'react-icons/md';
 
 import { type Metadata } from 'next';
 
-type Props = {
-  params: {
-    sku: string;
-  };
-};
-
 export default async function ProductPage({ params }: {params: {sku: string}}) {
-  const { sku } = params;
+  const { sku } = {...params};
   const product = await fetchProduct(sku);
 
   const isConfigurable = !!product?.configurable_options;
