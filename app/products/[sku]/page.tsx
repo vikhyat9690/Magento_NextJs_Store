@@ -16,7 +16,7 @@ type Props = {
   };
 };
 
-export default async function ProductPage({ params }: Props) {
+export default async function ProductPage({ params }: {params: {sku: string}}) {
   const { sku } = params;
   const product = await fetchProduct(sku);
 
