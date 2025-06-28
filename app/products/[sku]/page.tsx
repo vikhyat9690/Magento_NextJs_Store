@@ -8,20 +8,21 @@ import { Button } from '@/components/ui/button';
 import { DollarSign } from 'lucide-react';
 import { MdShoppingCartCheckout } from 'react-icons/md';
 
-interface ProductPageProps {
+import { type Metadata } from 'next';
+
+type Props = {
   params: {
     sku: string;
   };
-}
+};
 
-export default async function ProductPage({ params }: ProductPageProps) {
-  let isConfigurable = false;
+export default async function ProductPage({ params }: Props) {
   const { sku } = params;
   const product = await fetchProduct(sku);
-  if (product && product['configurable_options']) {
-    isConfigurable = true;
-  }
+
+  const isConfigurable = !!product?.configurable_options;
   const validImages = product.media_gallery?.filter((img: any) => !img.disabled) || [];
+
   return (
     <div className="min-h-screen w-full bg-[#0e0e10] text-white p-8 flex justify-center items-start">
       <div className="w-full max-w-5xl bg-[#1a1a1d] rounded-xl shadow-lg p-6 sm:p-8 space-y-8">
