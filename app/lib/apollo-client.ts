@@ -1,5 +1,6 @@
 import { ApolloClient, InMemoryCache, HttpLink, from } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
+import { Beaker } from "lucide-react";
 
 const MAGENTO_URL = process.env.NEXT_PUBLIC_MAGENTO_API!;
 
@@ -26,4 +27,21 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-export default client;
+// export default client;
+
+const MAGENTO_GRAPHQL_URI = process.env.NEXT_PUBLIC_MAGENTO_API!;
+  let acessToken = null;
+  if (typeof window !== "undefined") {
+    acessToken = localStorage.getItem("customer_token");
+  }
+const apolloClient = new ApolloClient({
+  link: new HttpLink({
+    uri: MAGENTO_GRAPHQL_URI,
+    headers: {
+      Authorization: `Bearer ${acessToken}`
+    }
+  }),
+  cache: new InMemoryCache()
+})
+
+export default apolloClient;

@@ -44,7 +44,7 @@ export default function Navbar() {
     initCustomer()
   }, [])
 
-  const handleSubmit = async() => {
+  const handleSubmit = async () => {
     const res = await Logout();
     toast.success('Logged out successfully');
   }
@@ -82,6 +82,9 @@ export default function Navbar() {
               Login/Register
             </Link>
         }
+        <Link href="/auth/cashier/login" className="text-gray-500 hover:text-white flex items-center">
+          Casheir Login
+        </Link>
         <Link href="/cart" className="text-gray-500 hover:text-white flex items-center">
           <ShoppingCartIcon />
         </Link>

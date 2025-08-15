@@ -1,7 +1,12 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "typeRoots": ["./node_modules/@types", "./graphql.d.ts"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -19,9 +24,16 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
-    },
+      "@/*": [
+        "./*"
+      ]
+    }
   },
-  "include": ["."],
-  "exclude": ["node_modules"],
+  "include": [
+    ".",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

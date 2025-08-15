@@ -1,0 +1,16 @@
+query OutletQuery {
+    getOutletConfigData(id) {
+    id
+    name
+    source
+    email
+    city
+    region
+    country
+    street_line_1
+    street_line_2
+    is_active
+    website_id
+    created_at
+    }
+}
